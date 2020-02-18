@@ -47,8 +47,8 @@
         Till
         <spring:bind path="till"><div><form:input type="date" path="till"/></div></spring:bind>
 
-        <%--Select apartmant photo to upload--%>
-        <%--<spring:bind path="image"><div><form:input type="file" path="image"/></div></spring:bind>--%>
+        Select apartmant photo to upload
+        <spring:bind path="image"><div><form:input type="file" path="image"/></div></spring:bind>
 
         <button type="submit">Submit</button>
     </form:form>

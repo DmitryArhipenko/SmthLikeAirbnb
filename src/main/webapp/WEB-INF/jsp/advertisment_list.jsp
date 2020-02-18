@@ -4,7 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -31,7 +30,7 @@
             margin: 25px;
             padding: 0px;
             width: 300px;
-            height: 550px; /* Размеры */
+            height: 290px; /* Размеры */
             outline: 2px solid #000; /* Чёрная рамка */
             border-radius: 10px; /* Радиус скругления */
         }
@@ -71,33 +70,8 @@
             <li><c:out value="The author is "/>
                 <c:out value="${advertisment.user.username}"/></li>
 
-            <%--<li><c:out value="Apartment photo"/>--%>
-                <%--<%--%>
-                        <%--Blob image = null;--%>
-                        <%--Connection con = null;--%>
-                        <%--byte[] imgData = null;--%>
-                        <%--Statement stmt = null;--%>
-                        <%--ResultSet rs = null;--%>
-
-                        <%--Class.forName("com.mysql.jdbc.Driver");--%>
-                        <%--con = DriverManager.getConnection("jdbc:mysql://localhost:3306/service?autoReconnect=true&useSSL=false", "root", "rootroot");--%>
-                        <%--stmt = con.createStatement();--%>
-                        <%--rs = stmt.executeQuery("select 'image' from 'advertisments' where id = '${advertisments.id}' ");--%>
-                        <%--image = rs.getBlob(1);--%>
-                        <%--imgData = image.getBytes(1, (int) image.length());--%>
-                        <%--response.setContentType("image/jpg");--%>
-                        <%--OutputStream o = response.getOutputStream();--%>
-                        <%--o.write(imgData);--%>
-                        <%--o.flush();--%>
-                        <%--o.close();--%>
-                        <%--rs.close();--%>
-                        <%--stmt.close();--%>
-                        <%--con.close();--%>
-
-                <%--%>--%>
-
-                <%--<img src ="${advertisment.image}" width="240" height="300"/>--%>
-
+            <li><c:out value="Apartment photo"/>
+                <c:out value="${contextPath}${advertisment.image}"/></li>
             </li>
 
             <li><a href="/edit_advertisment?id=${advertisment.id}">Edit</a>
@@ -107,6 +81,8 @@
         </ul>
     </c:forEach>
 </div>
+
+<img src="${contextPath}/resources/static/hero-bg.jpg"/>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>

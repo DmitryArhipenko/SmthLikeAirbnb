@@ -14,8 +14,8 @@ public class Advertisment {
 
     @Column(name = "title")
     private String title;
-    @Enumerated(EnumType.STRING)
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "apartment_type")
     private ApartmentType apartment_type;
 
@@ -28,21 +28,24 @@ public class Advertisment {
     @Column(name = "description")
     private String description;
 
-
     @Column(name = "since")
     private Date since;
 
     @Column(name = "till")
     private Date till;
 
-//    @Lob
-//    @Column(name="image", nullable=false, columnDefinition="mediumblob")
-//    private byte[] image;
+    @Lob
+    @Column(name = "image", nullable = false, columnDefinition = "mediumblob")
+    private byte[] image;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public Advertisment() {
     }
 
-    public Advertisment(String title, ApartmentType apartment_type, String city, String address, String description, Date since, Date till /*, byte[] image*/) {
+    public Advertisment(String title, ApartmentType apartment_type, String city, String address, String description, Date since, Date till, byte[] image) {
 
         this.title = title;
         this.apartment_type = apartment_type;
@@ -51,17 +54,17 @@ public class Advertisment {
         this.description = description;
         this.since = since;
         this.till = till;
-//        this.image = image;
+        this.image = image;
 
     }
 
-//    public byte[] getImage() {
-//        return image;
-//    }
-//
-//    public void setImage(byte[] image) {
-//        this.image = image;
-//    }
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
     public Long getId() {
         return id;
@@ -78,13 +81,6 @@ public class Advertisment {
     public void setCity(String city) {
         this.city = city;
     }
-
-    @ManyToOne(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 
     public User getUser() {
         return user;
@@ -154,7 +150,7 @@ public class Advertisment {
                 ", since=" + since +
                 ", till=" + till +
                 ", user=" + user +
-//                ", image=" + image +
+                ", image=" + image +
                 '}';
     }
 }

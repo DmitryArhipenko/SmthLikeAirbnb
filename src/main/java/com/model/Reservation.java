@@ -12,15 +12,15 @@ public class Reservation {
     @Column(name = "id", nullable = false, unique = true)
     private int id;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "host_id")
     private User host;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private User client;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "advertisment_id")
     private Advertisment advertisment;
 
@@ -30,7 +30,8 @@ public class Reservation {
     @Column(name = "reservation_till")
     private Date reservetion_till;
 
-    public Reservation () {}
+    public Reservation() {
+    }
 
     public Reservation(User host, User client, Advertisment advertisment, Date reservetion_since, Date reservetion_till) {
         this.host = host;

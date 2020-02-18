@@ -10,7 +10,9 @@ body {
     margin: 0 auto;
 }
 
-li {list-style-type: none;}
+li {
+    list-style-type: none;
+}
 
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
@@ -51,7 +53,9 @@ li {list-style-type: none;}
     margin: 0 auto;
 }
 
-li {list-style-type: none;}
+li {
+    list-style-type: none;
+}
 
 .adv-form .adv-form-heading,
 .adv-form .checkbox {

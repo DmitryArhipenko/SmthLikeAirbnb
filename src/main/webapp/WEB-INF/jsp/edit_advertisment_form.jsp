@@ -51,13 +51,19 @@
         <div><form:input type="text" path="description" class="form-control" placeholder="Description"/></div>
 
         Since
-        <spring:bind path="since"><div><form:input type="date" path="since" /></div></spring:bind>
+        <spring:bind path="since">
+            <div><form:input type="date" path="since"/></div>
+        </spring:bind>
 
         Till
-        <spring:bind path="till"><div><form:input type="date" path="till"/></div></spring:bind>
+        <spring:bind path="till">
+            <div><form:input type="date" path="till"/></div>
+        </spring:bind>
 
-        <%--Select apartmant photo to upload--%>
-        <%--<spring:bind path="image"><div><form:input type="file" path="image"/></div></spring:bind>--%>
+        Select apartmant photo to upload
+        <spring:bind path="image">
+            <div><form:input type="file" path="image"/></div>
+        </spring:bind>
 
         <form:hidden path="user"/>
 

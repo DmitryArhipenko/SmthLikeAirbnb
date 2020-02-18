@@ -1,9 +1,7 @@
 package com.web;
 
 import com.model.Advertisment;
-import com.model.Reservation;
 import com.model.User;
-import com.repository.ReservationRepository;
 import com.service.AdvertismentService;
 
 import com.service.UserService;
@@ -28,8 +26,6 @@ public class AdvertismentController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ReservationRepository reservationService;
 
     @RequestMapping(value = "/advertisment_list", method = RequestMethod.GET)
     public ModelAndView listAdvertisments(ModelAndView model) throws IOException {
@@ -56,29 +52,6 @@ public class AdvertismentController {
         modelAndView.setViewName("advertisment_list_by_city");
 
         return modelAndView;
-    }
-
-    @RequestMapping(value = "/book_advertisment", method = RequestMethod.GET)
-    public ModelAndView bookAdvertisment(@RequestParam long id) {
-        ModelAndView modelAndView = new ModelAndView("/book_advertisment");
-        Advertisment advertisment = advertismentService.get(id);
-        modelAndView.addObject("advertisment", advertisment);
-        modelAndView.addObject("reservation", new Reservation());
-        return modelAndView;
-    }
-
-
-    @RequestMapping(value = "/book_advertisment", method = RequestMethod.POST)
-    public String createReservForApartment(@ModelAttribute("reservation") Reservation reservation, @ModelAttribute("advertisment") Advertisment advertisment) {
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String clientName = ((UserDetails) principal).getUsername();
-        User client = userService.findByUsername(clientName);
-        reservation.setClient(client);
-
-        reservationService.save(reservation);
-
-        return "redirect:/welcome";
     }
 
 

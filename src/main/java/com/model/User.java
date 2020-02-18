@@ -33,7 +33,8 @@ public class User {
     @ElementCollection
     private List<Role> roles = new ArrayList<>();
 
-    public User() {}
+    public User() {
+    }
 
     public User(String firstname, String lastname, String email, String username) {
         this.firstname = firstname;
@@ -90,7 +91,6 @@ public class User {
         this.email = email;
     }
 
-    @Transient
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
@@ -99,11 +99,11 @@ public class User {
         this.passwordConfirm = passwordConfirm;
     }
 
-    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @ManyToMany(cascade = CascadeType.ALL)
     public List<Role> getRoles() {
         return roles;
     }

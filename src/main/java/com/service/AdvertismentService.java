@@ -1,6 +1,7 @@
 package com.service;
 
 import com.model.Advertisment;
+import com.model.ApartmentType;
 import com.repository.AdvertismentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,8 +38,11 @@ public class AdvertismentService {
         return advertismentRepository.findAdvertismentsByCity(city);
     }
 
-    public Advertisment findAdvertismentById(Long id){
+    public Advertisment findAdvertismentById(Long id) {
         return advertismentRepository.findAdvertismentById(id);
     }
 
+    public Advertisment findAdvertismentByTitle(String title) {
+        return advertismentRepository.findAdvertismentByTitle(title);
+    }
 }

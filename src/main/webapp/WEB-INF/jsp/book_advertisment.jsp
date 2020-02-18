@@ -18,11 +18,10 @@
 
     <style>
         ul {
-            align: "center";
             margin: 25px;
             padding: 0px;
-            width: 200px;
-            height: 220px; /* Размеры */
+            width: 300px;
+            height: 290px; /* Размеры */
             outline: 2px solid #000; /* Чёрная рамка */
             border-radius: 10px; /* Радиус скругления */
         }
@@ -58,26 +57,31 @@
                 <c:out value="${advertisment.description}"/></li>
 
             <li><c:out value="Since: "/>
-                <c:out value="${advertisment.since}" /></li>
+                <c:out value="${advertisment.since}"/></li>
 
             <li><c:out value="Till: "/>
-                <c:out value="${advertisment.till}" /></li>
+                <c:out value="${advertisment.till}"/></li>
 
             <li><c:out value="The author is "/>
                 <c:out value="${advertisment.user.username}"/>
                 <c:out value="${advertisment.user.id}"/></li>
 
-            <%--<li><c:out value="Apartment photo"/>--%>
-                <%--<c:out value="${advertisment.image}"/></li>--%>
+            <li><c:out value="Apartment photo"/>
+                <c:out value="${advertisment.image}"/></li>
         </ul>
 
-        <spring:bind path="advertisment"><form:input type="hidden" path="advertisment" value="${advertisment.id}" /></spring:bind>
+        <spring:bind path="advertisment"><form:input type="hidden" path="advertisment"
+                                                     value="${advertisment.id}"/></spring:bind>
 
-        <spring:bind path="host"><form:input type="hidden" path="host" value="${advertisment.user.id}" /></spring:bind>
+        <spring:bind path="host"><form:input type="hidden" path="host" value="${advertisment.user.id}"/></spring:bind>
 
-        <spring:bind path="reservetion_since"><div><form:input type="date" path="reservetion_since" /></div></spring:bind>
+        <spring:bind path="reservetion_since">
+            <div><form:input type="date" path="reservetion_since"/></div>
+        </spring:bind>
 
-        <spring:bind path="reservetion_till"><div><form:input type="date" path="reservetion_till"/></div></spring:bind>
+        <spring:bind path="reservetion_till">
+            <div><form:input type="date" path="reservetion_till"/></div>
+        </spring:bind>
         <button type="submit">Submit</button>
     </form:form>
 
