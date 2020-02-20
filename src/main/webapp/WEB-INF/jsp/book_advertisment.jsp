@@ -66,8 +66,8 @@
                 <c:out value="${advertisment.user.username}"/>
                 <c:out value="${advertisment.user.id}"/></li>
 
-            <li><c:out value="Apartment photo"/>
-                <c:out value="${advertisment.image}"/></li>
+            <li><c:forEach var="image" items="${advertisment.images}">
+                <img src="${'/static' + image.path}"></li>
         </ul>
 
         <spring:bind path="advertisment"><form:input type="hidden" path="advertisment"

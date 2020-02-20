@@ -2,6 +2,8 @@ package com.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "advertisments")
@@ -34,9 +36,8 @@ public class Advertisment {
     @Column(name = "till")
     private Date till;
 
-    @Lob
-    @Column(name = "image", nullable = false, columnDefinition = "mediumblob")
-    private byte[] image;
+    @ElementCollection
+    private List<Image> images = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
@@ -45,7 +46,7 @@ public class Advertisment {
     public Advertisment() {
     }
 
-    public Advertisment(String title, ApartmentType apartment_type, String city, String address, String description, Date since, Date till, byte[] image) {
+    public Advertisment(String title, ApartmentType apartment_type, String city, String address, String description, Date since, Date till, List<Image> image) {
 
         this.title = title;
         this.apartment_type = apartment_type;
@@ -54,16 +55,21 @@ public class Advertisment {
         this.description = description;
         this.since = since;
         this.till = till;
-        this.image = image;
+        this.images = image;
 
     }
 
-    public byte[] getImage() {
-        return image;
+    @JoinTable(name = "advertisment_images",
+            joinColumns = @JoinColumn(name = "advertisment_id"),
+            inverseJoinColumns = @JoinColumn(name = "image_id")
+    )
+    @ManyToMany(cascade = CascadeType.ALL)
+    public List<Image> getImages() {
+        return images;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     public Long getId() {
@@ -150,7 +156,7 @@ public class Advertisment {
                 ", since=" + since +
                 ", till=" + till +
                 ", user=" + user +
-                ", image=" + image +
+                ", image=" + images +
                 '}';
     }
 }

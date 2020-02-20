@@ -34,3 +34,6 @@
 
 </body>
 </html>
+
+<%--<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
+<%--</sec:authorize>--%>

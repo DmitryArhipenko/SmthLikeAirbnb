@@ -60,10 +60,7 @@
             <div><form:input type="date" path="till"/></div>
         </spring:bind>
 
-        Select apartmant photo to upload
-        <spring:bind path="image">
-            <div><form:input type="file" path="image"/></div>
-        </spring:bind>
+        <form:hidden path="images"/>
 
         <form:hidden path="user"/>
 
