@@ -5,6 +5,7 @@ import com.model.Reservation;
 import com.model.User;
 import com.repository.ReservationRepository;
 import com.service.AdvertismentService;
+import com.service.ReservationService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ReservationController {
 
     @Autowired
-    private ReservationRepository reservationService;
+    private ReservationService reservationService;
 
     @Autowired
     private AdvertismentService advertismentService;

@@ -1,6 +1,7 @@
 package com.web;
 
 import com.model.User;
+import com.service.SecurityService;
 import com.service.UserService;
 import com.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private SecurityService securityService;
+
+    @Autowired
     private UserValidator userValidator;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
@@ -35,6 +39,8 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
+
+        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
         userService.save(userForm);
 
