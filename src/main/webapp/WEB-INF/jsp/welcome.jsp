@@ -38,10 +38,14 @@
 
 </div>
 
+<%--<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
+<%--</sec:authorize>--%>
+
+<sec:authorize access="hasRole('ADMIN')">
 <div class="container">
     <a href="/add_new_adv">New advertisment</a>
 </div>
-
+</sec:authorize>
 
 <div class="container">
     <jsp:include page="/advertisment_list"/>

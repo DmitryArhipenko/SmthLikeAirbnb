@@ -6,22 +6,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.sql.DataSource;
-
 @Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    DataSource dataSource;
-
-    @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Bean
     @Override
@@ -30,46 +28,42 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
-    {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
-
-    @Override
-    public void configure(final WebSecurity web) throws Exception {
-        web.ignoring()
-                .antMatchers("/static/**")
-                .antMatchers("/js/**")
-                .antMatchers("/css/**");
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**","/login", "/registration").permitAll()
-                .antMatchers("/").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/welcome").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/advertisment_list").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/advertisment_list_by_city").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/book_advertisment").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/edit_advertisment_form").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/new_adv").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/search").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/resources/**", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .permitAll()
                 .and()
                 .logout()
                 .permitAll();
-    }
 
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/welcome").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/admin").hasRole("ADMIN")
+//                .antMatchers("/advertisment_list").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/advertisment_list_by_city").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/book_advertisment").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/edit_advertisment_form").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/new_adv").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/search").hasAnyRole("USER", "ADMIN")
+//                .anyRequest().authenticated();
+//    }
+
+    }
 }
