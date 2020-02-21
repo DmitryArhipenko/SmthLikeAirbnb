@@ -2,8 +2,6 @@ package com.model;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table(name = "images")
 public class Image {
@@ -16,7 +14,6 @@ public class Image {
     @Column(name = "path")
     private String path;
 
-    @JsonBackReference
     @ManyToOne
     private Advertisment advertisment;
 
