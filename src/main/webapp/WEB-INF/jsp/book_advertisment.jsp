@@ -33,7 +33,7 @@
 
 <div>
 
-    <form:form method="POST" modelAttribute="reservation" action="/book_advertisment" class="adv-form">
+    <form:form method="POST" modelAttribute="reservation" class="adv-form">
 
         <h4 class="adv-form-heading">Make your reservation on current adv</h4>
 
@@ -65,15 +65,10 @@
             <li><c:out value="The author is "/>
                 <c:out value="${advertisment.user.username}"/>
                 <c:out value="${advertisment.user.id}"/></li>
-
-            <li><c:forEach var="image" items="${advertisment.images}">
-                <img src="${'/static' + image.path}"></li>
         </ul>
 
         <spring:bind path="advertisment"><form:input type="hidden" path="advertisment"
                                                      value="${advertisment.id}"/></spring:bind>
-
-        <spring:bind path="host"><form:input type="hidden" path="host" value="${advertisment.user.id}"/></spring:bind>
 
         <spring:bind path="reservetion_since">
             <div><form:input type="date" path="reservetion_since"/></div>
@@ -87,14 +82,12 @@
 
 </div>
 
-
 <div align="center">
     <a href="/welcome">Back to welcome</a>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-
 
 </body>
 

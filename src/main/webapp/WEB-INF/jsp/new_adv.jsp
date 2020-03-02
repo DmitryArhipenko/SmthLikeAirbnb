@@ -22,7 +22,7 @@
 
 <div>
 
-    <form:form method="POST" modelAttribute="adv" action="/add_new_adv" class="adv-form">
+    <form:form method="POST" modelAttribute="adv" class="adv-form">
 
         <h4 class="adv-form-heading">Input dates for the reservation</h4>
 
@@ -46,8 +46,6 @@
 
         Till
         <spring:bind path="till"><div><form:input type="date" path="till"/></div></spring:bind>
-
-        <form:hidden path="images"/>
 
         <button type="submit">Submit</button>
     </form:form>

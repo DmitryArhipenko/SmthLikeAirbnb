@@ -27,7 +27,7 @@ public class AdvertismentController {
     private UserService userService;
 
 
-    @RequestMapping(value = "/advertisment_list", method = RequestMethod.GET)
+    @RequestMapping(value = "/advertisments/list", method = RequestMethod.GET)
     public ModelAndView listAdvertisments(ModelAndView model) throws IOException {
 
         List<Advertisment> listAdv = advertismentService.listAll();
@@ -38,13 +38,13 @@ public class AdvertismentController {
     }
 
 
-    @RequestMapping(value = "/get_city_to_search", method = RequestMethod.GET)
+    @RequestMapping(value = "/advertisments/search/bythecity", method = RequestMethod.GET)
     public ModelAndView insertTheCityToSearch(@ModelAttribute("city") String city) throws IOException {
 
         return new ModelAndView("search", "city", new String());
     }
 
-    @RequestMapping(value = "/advertisment_list_by_city", method = RequestMethod.POST)
+    @RequestMapping(value = "/advertisments/search/bythecity", method = RequestMethod.POST)
     public ModelAndView listAdvertismentsByCity(ModelAndView modelAndView, @RequestParam(value = "city") String city) throws IOException {
 
         List<Advertisment> listAdvByTheCity = advertismentService.listByTheCity(city);
@@ -55,13 +55,13 @@ public class AdvertismentController {
     }
 
 
-    @RequestMapping(value = "/add_new_adv", method = RequestMethod.GET)
+    @RequestMapping(value = "/advertisment/new", method = RequestMethod.GET)
     public ModelAndView openAddNewAdv() {
 
         return new ModelAndView("new_adv", "adv", new Advertisment());
     }
 
-    @RequestMapping(value = "/add_new_adv", method = RequestMethod.POST)
+    @RequestMapping(value = "/advertisment/new", method = RequestMethod.POST)
     public String addNewAdv(@ModelAttribute("adv") Advertisment advertisment) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -75,13 +75,13 @@ public class AdvertismentController {
     }
 
 
-    @RequestMapping(value = "/edit_advertisment", method = RequestMethod.GET)
+    @RequestMapping(value = "/advertisment/edit", method = RequestMethod.GET)
     public ModelAndView getEditAdvertismentForm(@RequestParam long id) {
 
         return new ModelAndView("/edit_advertisment_form", "current_advertisment", advertismentService.get(id));
     }
 
-    @RequestMapping(value = "/edit_advertisment", method = RequestMethod.PUT)
+    @RequestMapping(value = "/advertisment/edit", method = RequestMethod.PUT)
     public String postEditedAdvertismentForm(@ModelAttribute("current_advertisment") Advertisment advertisment) {
 
         advertismentService.update(advertisment);
@@ -90,7 +90,7 @@ public class AdvertismentController {
     }
 
 
-    @RequestMapping(value = "/delete_advertisment", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/advertisment/delete", method = RequestMethod.DELETE)
     public String deleteAdvertismentForm(@RequestParam long id) {
         advertismentService.delete(id);
         return "redirect:/welcome";

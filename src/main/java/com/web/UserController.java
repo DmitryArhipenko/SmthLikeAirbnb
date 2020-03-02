@@ -1,7 +1,6 @@
 package com.web;
 
 import com.model.User;
-import com.service.SecurityService;
 import com.service.UserService;
 import com.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpSession;
-
 @Controller
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private SecurityService securityService;
+//    @Autowired
+//    private SecurityService securityService;
 
     @Autowired
     private UserValidator userValidator;
@@ -40,7 +37,7 @@ public class UserController {
             return "registration";
         }
 
-        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+//        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
         userService.save(userForm);
 

@@ -1,7 +1,11 @@
 package com.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "reservation")
@@ -13,16 +17,13 @@ public class Reservation {
     private int id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "host_id")
-    private User host;
-
-    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private User client;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "advertisment_id")
-    private Advertisment advertisment;
+    private Set<Advertisment> advertisment = new HashSet<Advertisment>();
 
     @Column(name = "reservation_since")
     private Date reservetion_since;
@@ -33,10 +34,9 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(User host, User client, Advertisment advertisment, Date reservetion_since, Date reservetion_till) {
-        this.host = host;
+    public Reservation(int id, User client, Date reservetion_since, Date reservetion_till) {
+        this.id = id;
         this.client = client;
-        this.advertisment = advertisment;
         this.reservetion_since = reservetion_since;
         this.reservetion_till = reservetion_till;
     }
@@ -49,28 +49,12 @@ public class Reservation {
         this.id = id;
     }
 
-    public User getHost() {
-        return host;
-    }
-
-    public void setHost(User host) {
-        this.host = host;
-    }
-
     public User getClient() {
         return client;
     }
 
     public void setClient(User client) {
         this.client = client;
-    }
-
-    public Advertisment getAdvertisment() {
-        return advertisment;
-    }
-
-    public void setAdvertisment(Advertisment advertisment) {
-        this.advertisment = advertisment;
     }
 
     public Date getReservetion_since() {
@@ -89,13 +73,19 @@ public class Reservation {
         this.reservetion_till = reservetion_till;
     }
 
+    public Set<Advertisment> getAdvertisment() {
+        return advertisment;
+    }
+
+    public void setAdvertisment(Set<Advertisment> advertisment) {
+        this.advertisment = advertisment;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
                 "id=" + id +
-                ", host=" + host +
                 ", client=" + client +
-                ", advertisment=" + advertisment +
                 ", reservetion_since=" + reservetion_since +
                 ", reservetion_till=" + reservetion_till +
                 '}';

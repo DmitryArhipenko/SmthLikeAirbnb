@@ -99,11 +99,11 @@ public class User {
         this.passwordConfirm = passwordConfirm;
     }
 
-    @JoinTable(name = "user_role",
+    @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     public List<Role> getRoles() {
         return roles;
     }
@@ -120,9 +120,6 @@ public class User {
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", passwordConfirm='" + passwordConfirm + '\'' +
-                ", roles=" + roles +
                 '}';
     }
 }

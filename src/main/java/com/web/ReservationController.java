@@ -31,7 +31,7 @@ public class ReservationController {
     private UserService userService;
 
 
-    @RequestMapping(value = "/book_advertisment", method = RequestMethod.GET)
+    @RequestMapping(value = "/book/advertisment", method = RequestMethod.GET)
     public ModelAndView bookAdvertisment(@RequestParam long id) {
         ModelAndView modelAndView = new ModelAndView("/book_advertisment");
         Advertisment advertisment = advertismentService.get(id);
@@ -40,7 +40,7 @@ public class ReservationController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/book_advertisment", method = RequestMethod.POST)
+    @RequestMapping(value = "/book/advertisment", method = RequestMethod.POST)
     public String createReservForApartment(@ModelAttribute("reservation") Reservation reservation, @ModelAttribute("advertisment") Advertisment advertisment) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

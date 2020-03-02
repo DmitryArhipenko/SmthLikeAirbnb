@@ -1,9 +1,10 @@
 package com.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "advertisments")
@@ -36,17 +37,29 @@ public class Advertisment {
     @Column(name = "till")
     private Date till;
 
-    @ElementCollection
-    private List<Image> images = new ArrayList<>();
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ElementCollection
+    private Map<Date, Long> days_reserved = new HashMap<Date, Long>();
+
+    @JsonBackReference
+    @ManyToMany(mappedBy="advertisment")
+    private Set<Reservation> reservations = new HashSet<Reservation>();
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
     public Advertisment() {
     }
 
-    public Advertisment(String title, ApartmentType apartment_type, String city, String address, String description, Date since, Date till, List<Image> image) {
+    public Advertisment(String title, ApartmentType apartment_type, String city, String address, String description, Date since, Date till) {
 
         this.title = title;
         this.apartment_type = apartment_type;
@@ -55,21 +68,7 @@ public class Advertisment {
         this.description = description;
         this.since = since;
         this.till = till;
-        this.images = image;
 
-    }
-
-    @JoinTable(name = "advertisment_images",
-            joinColumns = @JoinColumn(name = "advertisment_id"),
-            inverseJoinColumns = @JoinColumn(name = "image_id")
-    )
-    @ManyToMany(cascade = CascadeType.ALL)
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
     }
 
     public Long getId() {
@@ -136,6 +135,14 @@ public class Advertisment {
         this.since = since;
     }
 
+    public Map<Date, Long> getDays_reserved() {
+        return days_reserved;
+    }
+
+    public void setDays_reserved(Map<Date, Long> days_reserved) {
+        this.days_reserved = days_reserved;
+    }
+
     public Date getTill() {
         return till;
     }
@@ -156,7 +163,6 @@ public class Advertisment {
                 ", since=" + since +
                 ", till=" + till +
                 ", user=" + user +
-                ", image=" + images +
                 '}';
     }
 }

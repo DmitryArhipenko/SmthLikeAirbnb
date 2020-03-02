@@ -68,14 +68,9 @@
     <li><c:out value="The author is "/>
     <c:out value="${advertisment.user.username}"/></li>
 
-    <li>Here advs photos described
-        <c:forEach var="image" items="${advertisment.images}">
-    <img src="${'/static' + image.path}">
-    </c:forEach></li>
-
-    <li><a href="/edit_advertisment?id=${advertisment.id}">Edit</a>
-        <a href="/delete_advertisment?id=${advertisment.id}">Delete</a>
-        <a href="/book_advertisment?id=${advertisment.id}">Make Reservation</a></li>
+    <li><a href="/advertisment/edit?id=${advertisment.id}">Edit</a>
+        <a href="/advertisment/delete?id=${advertisment.id}">Delete</a>
+        <a href="/book/advertisment?id=${advertisment.id}">Make Reservation</a></li>
 
     </ul>
 </c:forEach>

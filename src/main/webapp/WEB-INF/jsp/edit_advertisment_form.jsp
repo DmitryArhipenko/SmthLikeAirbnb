@@ -60,8 +60,6 @@
             <div><form:input type="date" path="till"/></div>
         </spring:bind>
 
-        <form:hidden path="images"/>
-
         <form:hidden path="user"/>
 
         <button type="submit">Submit</button>

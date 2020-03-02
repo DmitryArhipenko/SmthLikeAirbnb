@@ -43,16 +43,16 @@
 
 <sec:authorize access="hasRole('ADMIN')">
 <div class="container">
-    <a href="/add_new_adv">New advertisment</a>
+    <a href="/advertisment/new">New advertisment</a>
 </div>
 </sec:authorize>
 
 <div class="container">
-    <jsp:include page="/advertisment_list"/>
+    <jsp:include page="/advertisments/list"/>
 </div>
 
 <div class="container">
-    <jsp:include page="/get_city_to_search"/>
+    <jsp:include page="/advertisments/search/bythecity"/>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

@@ -29,17 +29,10 @@
 
 
 <div class="container">
-    <form:form method="POST" modelAttribute="city" action="/advertisment_list_by_city" class="adv-form">
+    <form:form method="POST" modelAttribute="city" class="adv-form">
         Search advertisments in the current city:
         <div>
             <input type="text" name="city" class="form-control" placeholder="Input the city"/>
-        </div>
-
-        <div>Here choose the type of your apartment
-            <select path="apartmentType">
-                <option value="" label="Choose"/>
-                <options items="${availableOptions}"/>
-            </select>
         </div>
 
         <button type="submit">Search</button>
