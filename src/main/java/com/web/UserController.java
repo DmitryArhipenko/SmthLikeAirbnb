@@ -10,6 +10,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -64,5 +69,36 @@ public class UserController {
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
     public String admin(Model model) {
         return "admin";
+    }
+
+    @RequestMapping(value = "/user/list", method = RequestMethod.GET)
+    public ModelAndView listUsers(ModelAndView model) throws IOException {
+
+        List<User> userList = userService.listAll();
+        model.addObject("listUsers", userList);
+        model.setViewName("listUsers");
+
+        return model;
+    }
+
+    @RequestMapping(value = "/user/edit", method = RequestMethod.GET)
+    public ModelAndView getEditUserForm(@RequestParam long id) {
+
+        return new ModelAndView("/edit_user_form", "current_user", userService.get(id));
+    }
+
+    @RequestMapping(value = "/user/edit", method = RequestMethod.PUT)
+    public String postEditedUserForm(@ModelAttribute("current_user") User user) {
+
+        userService.update(user);
+
+        return "redirect:/welcome";
+    }
+
+
+    @RequestMapping(value = "/user/delete", method = RequestMethod.DELETE)
+    public String deleteUser(@RequestParam long id) {
+        userService.delete(id);
+        return "redirect:/welcome";
     }
 }

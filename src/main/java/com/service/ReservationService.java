@@ -33,4 +33,12 @@ public class ReservationService {
         reservationRepository.save(reservation);
     }
 
+    public List<Reservation> findReservationsByClient(Long id) {
+        return reservationRepository.findReservationsByClient(id);
+    }
+
+    public List<Reservation> findAllReservations() {
+        return (List<Reservation>) reservationRepository.findAll();
+    }
+
 }

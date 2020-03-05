@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
+import java.util.List;
+
 
 @Controller
 public class ReservationController {
@@ -42,16 +45,45 @@ public class ReservationController {
 
     @RequestMapping(value = "/book/advertisment", method = RequestMethod.POST)
     public String createReservForApartment(@ModelAttribute("reservation") Reservation reservation, @ModelAttribute("advertisment") Advertisment advertisment) {
-
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String clientName = ((UserDetails) principal).getUsername();
         User client = userService.findByUsername(clientName);
         reservation.setClient(client);
-
         reservationService.save(reservation);
-
         return "redirect:/welcome";
     }
 
 
+    @RequestMapping(value = "/reservations/list", method = RequestMethod.GET)
+    public ModelAndView listAllReservations(ModelAndView model) throws IOException {
+        List<Reservation> reservationList = reservationService.listAll();
+        model.addObject("reservationList", reservationList);
+        model.setViewName("reservation_list");
+        return model;
+    }
+
+
+    @RequestMapping(value = "/user/reservations/list", method = RequestMethod.GET)
+    public ModelAndView listReservationsOfCurrentUser(@ModelAttribute("client_id") Long id) throws IOException {
+        return new ModelAndView("reservation_list_for_current_user", "reservationList", reservationService.findReservationsByClient(id));
+    }
+
+
+    @RequestMapping(value = "/reservation/edit", method = RequestMethod.GET)
+    public ModelAndView getEditReservationForm(@RequestParam long id) {
+        return new ModelAndView("/edit_resrvation_form", "current_reservation", reservationService.get(id));
+    }
+
+    @RequestMapping(value = "/reservation/edit", method = RequestMethod.PUT)
+    public String postEditedReservationForm(@ModelAttribute("current_reservation") Reservation reservation) {
+        reservationService.update(reservation);
+        return "redirect:/welcome";
+    }
+
+
+    @RequestMapping(value = "/reservation/delete", method = RequestMethod.DELETE)
+    public String deleteCurrentReservation (@RequestParam long id) {
+        reservationService.delete(id);
+        return "redirect:/welcome";
+    }
 }
