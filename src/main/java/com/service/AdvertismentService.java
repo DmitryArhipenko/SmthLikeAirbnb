@@ -45,4 +45,8 @@ public class AdvertismentService {
     public Advertisment findAdvertismentByTitle(String title) {
         return advertismentRepository.findAdvertismentByTitle(title);
     }
+
+    public List<Advertisment> findAdvertismentsByApartment_type (String apartmentType){
+        return advertismentRepository.findAdvertismentsByApartment_type(apartmentType);
+    }
 }

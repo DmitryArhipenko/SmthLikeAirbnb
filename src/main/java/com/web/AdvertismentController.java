@@ -54,6 +54,15 @@ public class AdvertismentController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/advertisments/search/byapartmenttype/{apartmentType}", method = RequestMethod.GET)
+    public ModelAndView listAdvertismentsByApartmentType(ModelAndView modelAndView, @PathVariable(value = "apartmentType") String apartmentType) throws IOException {
+
+        List<Advertisment> listAdvsByApartmentType = advertismentService.findAdvertismentsByApartment_type(apartmentType);
+        modelAndView.addObject("list_by_apartmenttype", listAdvsByApartmentType);
+        modelAndView.setViewName("advertisment_list_by_apartmeny_type");
+
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/advertisment/new", method = RequestMethod.GET)
     public ModelAndView openAddNewAdv() {

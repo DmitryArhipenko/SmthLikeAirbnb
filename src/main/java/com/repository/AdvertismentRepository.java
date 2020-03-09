@@ -13,4 +13,6 @@ public interface AdvertismentRepository extends CrudRepository<Advertisment, Lon
     Advertisment findAdvertismentById(Long id);
 
     Advertisment findAdvertismentByTitle(String title);
+
+    List<Advertisment> findAdvertismentsByApartment_type (String apartmentType);
 }
